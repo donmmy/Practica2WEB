@@ -1,13 +1,21 @@
+
 'use client'
+
 import { useState } from "react";
-import PlaylistDisplay from "../components/PlaylistDisplay.jsx";
+import ArtistWidget from "../components/widgets/ArtistWidget";
+import TrackWidget from "../components/widgets/TrackWidget";
+import PopularityWidget from "../components/widgets/PopularityWidget";
 
 export default function Home() {
-    const [activeTab, setActiveTab] = useState('home');
-
+    const [selectedArtist, setSelectedArtist] = useState(null);
+    const [selectedTrack, setSelectedTrack] = useState(null);
+    const [selectedPopularity, setSelectedPopularity] = useState(null);
+    
     return (
         <div>
-            {activeTab === 'playlist' && <PlaylistDisplay />}
+            <ArtistWidget onSelect={setSelectedArtist} selectedArtist={selectedArtist}/>
+            <TrackWidget onSelect={setSelectedTrack} selectedTrack={selectedTrack}/>
+            <PopularityWidget onSelect={setSelectedPopularity} selectedPopularity={selectedPopularity}/>
         </div>
     )
 }
