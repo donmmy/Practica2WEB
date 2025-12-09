@@ -1,9 +1,12 @@
+import { getAccessToken } from "./auth";
+
 export async function generatePlaylist(preferences) {
   const { artists, genres, decades, popularity } = preferences;
   const token = getAccessToken();
   let allTracks = [];
 
   // 1. Obtener top tracks de artistas seleccionados
+  console.log("Creando artistas");
   for (const artist of artists) {
     const tracks = await fetch(
       `https://api.spotify.com/v1/artists/${artist.id}/top-tracks?market=US`,
@@ -16,6 +19,7 @@ export async function generatePlaylist(preferences) {
   }
 
   // 2. Buscar por géneros
+  console.log("Creando géneros");
   for (const genre of genres) {
     const results = await fetch(
       `https://api.spotify.com/v1/search?type=track&q=genre:${genre}&limit=20`,
@@ -28,6 +32,7 @@ export async function generatePlaylist(preferences) {
   }
 
   // 3. Filtrar por década
+  console.log("Creando décadas");
   if (decades.length > 0) {
     allTracks = allTracks.filter(track => {
       const year = new Date(track.album.release_date).getFullYear();
@@ -39,6 +44,7 @@ export async function generatePlaylist(preferences) {
   }
 
   // 4. Filtrar por popularidad
+  console.log("Creando popularidad");
   if (popularity) {
     const [min, max] = popularity;
     allTracks = allTracks.filter(

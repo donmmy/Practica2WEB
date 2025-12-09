@@ -1,0 +1,198 @@
+/* Dashboard Main */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.dashboard {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
+    padding: 40px 20px;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.dashboard-title {
+    color: var(--accent-purple);
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
+    background: linear-gradient(135deg, var(--primary-purple), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dashboard-subtitle {
+    color: #888;
+    font-size: 1.125rem;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+/* Search Section */
+.search-section {
+    max-width: 1200px;
+    margin: 0 auto 40px auto;
+    padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Playlists Section */
+.playlists-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Creating Playlist Overlay */
+.creating-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.creating-modal {
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95), rgba(20, 20, 20, 0.95));
+    border: 2px solid var(--accent-purple);
+    border-radius: 20px;
+    padding: 40px 60px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(139, 92, 246, 0.4);
+}
+
+.creating-modal p {
+    color: white;
+    font-size: 1.125rem;
+    margin: 20px 0 0 0;
+    font-weight: 600;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(139, 92, 246, 0.2);
+    border-top: 4px solid var(--accent-purple);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .dashboard {
+        padding: 2rem 1.5rem;
+    }
+    
+    .search-section {
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+    
+    .playlists-section {
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard {
+        padding: 1.5rem 1rem;
+    }
+    
+    .dashboard-header {
+        margin-bottom: 2rem;
+    }
+    
+    .dashboard-title {
+        font-size: 2rem;
+        letter-spacing: 1px;
+    }
+    
+    .dashboard-subtitle {
+        font-size: 1rem;
+    }
+    
+    .search-section {
+        padding: 0 0.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .playlists-section {
+        padding: 0 0.5rem;
+    }
+    
+    .creating-modal {
+        padding: 2rem 2.5rem;
+        margin: 0 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard {
+        padding: 1rem 0.5rem;
+    }
+    
+    .dashboard-title {
+        font-size: 1.5rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .dashboard-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .creating-modal {
+        padding: 1.5rem 2rem;
+    }
+    
+    .creating-modal p {
+        font-size: 1rem;
+    }
+    
+    .spinner {
+        width: 50px;
+        height: 50px;
+    }
+}

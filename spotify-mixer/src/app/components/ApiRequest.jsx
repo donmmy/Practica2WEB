@@ -1,9 +1,11 @@
-import { getAccessToken } from "@/lib/auth";
-
+import { getAccessToken, logout, isAuthenticated } from "@/lib/auth";
 export async function apiRequest(url, method = "GET", body = null) {
-    const token = getAccessToken();
-
-    if (!token) {
+    let token;
+    if(isAuthenticated()) {
+        token = getAccessToken();
+        //console.log("Token: ", token);
+    } else {
+        logout();
         throw new Error("No access token available. Please login.");
     }
 
@@ -21,5 +23,5 @@ export async function apiRequest(url, method = "GET", body = null) {
     }
 
     const data = await response.json();
-    return data;
+    return data
 }

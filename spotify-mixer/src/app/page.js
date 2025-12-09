@@ -28,9 +28,6 @@ export default function Home() {
           </div>
           <Header id="title_home"/>
         </div>
-        <>
-          <PlaylistDisplay />
-        </>
       </div>  
   );
 }

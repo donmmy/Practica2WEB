@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { saveTokens } from "@/lib/auth";
+import { apiRequest } from "./ApiRequest";
+import "./PlaylistDisplay.css";
 
-export default function PlaylistDisplay() {
+export default function PlaylistDisplay({ refreshKey = 0 }) {
     const [playlist, setPlaylist] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -12,42 +13,51 @@ export default function PlaylistDisplay() {
         const fetchPlaylist = async () => {
             try {
                 setLoading(true);
-
-                const token = await fetch('/api/spotify-token').then(res => res.json());
-                const response = await fetch('https://api.spotify.com/v1/me/playlists', {
-                    headers: {
-                        'Authorization': `Bearer ${token.access_token}`
-                    }
-                });
-                const playlists = await response.json();
+                const playlists = await apiRequest('https://api.spotify.com/v1/me/playlists');
                 setPlaylist(playlists);
             } catch (err) {
                 setError(err);
+                console.error("Error fetching playlists:", err);
             } finally {
                 setLoading(false);
             }
         };
 
         fetchPlaylist();
-    }, []);
+    }, [refreshKey]); // Se ejecuta cada vez que refreshKey cambia
 
     return (
-        <div>
+        <div className="playlist-container">
+            <h2 className="playlist-title">Your Playlists</h2>
             {loading ? (
-                <p>Loading playlist...</p>
+                <div className="loading-container">
+                    <div className="loading-spinner"></div>
+                    <p>Loading playlists...</p>
+                </div>
             ) : playlist ? (
-                <ul>
+                <div className="playlists-grid">
                     {playlist.items.map((pl) => (
-                        <li key={pl.id}>{pl.name}</li>
+                        <div key={pl.id} className="playlist-card">
+                            {pl.images && pl.images[0] && (
+                                <img src={pl.images[0].url} alt={pl.name} className="playlist-image" />
+                            )}
+                            <div className="playlist-info">
+                                <h3 className="playlist-name">{pl.name}</h3>
+                                <p className="playlist-tracks">{pl.tracks.total} tracks</p>
+                            </div>
+                        </div>
                     ))}
-                </ul>
+                </div>
             ) : error ? (
-                <p>Error loading playlist: {error.message}</p>
+                <div className="error-message">
+                    <p>❌ Error loading playlists: {error.message}</p>
+                </div>
             ) : (
-                <p>No hay playlists para mostrar.</p>
+                <div className="empty-message">
+                    <p>No playlists available</p>
+                </div>
             )}
         </div>
     );
 }
-
 

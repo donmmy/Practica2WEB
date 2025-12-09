@@ -1,0 +1,207 @@
+/* Search Bar Container */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.search-bar-container {
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+    z-index: 100;
+    overflow: hidden;
+}
+
+/* Search Bar Main */
+.search-bar {
+    background: linear-gradient(145deg, var(--dark-gray), var(--medium-gray));
+    border: 2px solid var(--primary-purple);
+    border-radius: 50px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.2);
+    margin-bottom: 20px;
+}
+
+.search-bar:hover {
+    border-color: var(--accent-purple);
+    box-shadow: 0 6px 24px rgba(139, 92, 246, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Search Icon */
+.search-icon {
+    font-size: 24px;
+    color: var(--primary-purple);
+}
+
+/* Search Input */
+.search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.search-input::placeholder {
+    color: #888;
+}
+
+/* Expand Icon */
+.expand-icon {
+    font-size: 16px;
+    color: var(--primary-purple);
+    transition: transform 0.3s ease;
+}
+
+.expand-icon.rotated {
+    transform: rotate(180deg);
+}
+
+/* Widgets Expanded Area */
+.widgets-expanded {
+    background: linear-gradient(145deg, var(--dark-gray), var(--medium-gray));
+    border: 2px solid var(--primary-purple);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: -10px;
+    padding-top: 30px;
+    animation: slideDown 0.3s ease forwards;
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.2);
+}
+
+/* Widgets Grid dentro del search bar */
+.widgets-expanded .widgets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+/* Anular la animación individual de widgets cuando están en el search bar */
+.widgets-expanded .widget {
+    animation: none !important;
+}
+
+/* Search Actions */
+.search-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.apply-button,
+.clear-button {
+    padding: 12px 32px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.apply-button {
+    background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
+}
+
+.apply-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(139, 92, 246, 0.4);
+    background: linear-gradient(135deg, var(--accent-purple), var(--primary-purple));
+}
+
+.clear-button {
+    background: transparent;
+    color: var(--accent-purple);
+    border: 2px solid var(--light-gray);
+}
+
+.clear-button:hover {
+    border-color: var(--primary-purple);
+    background: rgba(139, 92, 246, 0.1);
+}
+
+/* Animation */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .widgets-expanded .widgets-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-bar {
+        padding: 14px 20px;
+        border-radius: 40px;
+    }
+    
+    .search-input {
+        font-size: 15px;
+    }
+    
+    .widgets-expanded {
+        padding: 20px;
+    }
+    
+    .widgets-expanded .widgets-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .search-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .apply-button,
+    .clear-button {
+        width: 100%;
+        padding: 14px 24px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-bar {
+        padding: 12px 16px;
+        border-radius: 30px;
+    }
+    
+    .search-input {
+        font-size: 14px;
+    }
+    
+    .widgets-expanded {
+        padding: 16px;
+        border-radius: 12px;
+    }
+    
+    .apply-button,
+    .clear-button {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+}
